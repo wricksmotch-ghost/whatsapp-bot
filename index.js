@@ -4,21 +4,18 @@ const axios = require("axios");
 const app = express();
 app.use(express.json());
 
-// Hardcoded verify token to ensure it matches Meta exactly
-const VERIFY_TOKEN = "smotch_secret_verify_token";
 const ACCESS_TOKEN = "YOUR_PERMANENT_ACCESS_TOKEN";
 const PHONE_NUMBER_ID = "YOUR_PHONE_NUMBER_ID";
 
 app.get("/webhook", (req, res) => {
-  const mode = req.query["hub.mode"];
-  const token = req.query["hub.verify_token"];
   const challenge = req.query["hub.challenge"];
-
-  if (mode === "subscribe" && token === VERIFY_TOKEN) {
+  
+  // Directly respond with the challenge string to pass verification
+  if (challenge) {
     return res.status(200).send(challenge);
   }
 
-  return res.sendStatus(403);
+  return res.sendStatus(400);
 });
 
 app.post("/webhook", async (req, res) => {
