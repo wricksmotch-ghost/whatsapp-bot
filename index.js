@@ -4,7 +4,8 @@ const axios = require("axios");
 const app = express();
 app.use(express.json());
 
-const VERIFY_TOKEN = process.env.VERIFY_TOKEN || "smotch_secret_verify_token";
+// Hardcoded verify token to ensure it matches Meta exactly
+const VERIFY_TOKEN = "smotch_secret_verify_token";
 const ACCESS_TOKEN = "YOUR_PERMANENT_ACCESS_TOKEN";
 const PHONE_NUMBER_ID = "YOUR_PHONE_NUMBER_ID";
 
